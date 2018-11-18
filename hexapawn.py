@@ -6,6 +6,7 @@ initial_board = [
     ['B', '0', 'B']
 ]
 
+
 def print_twod_array(twoDarray):
     for row in twoDarray:
         for elem in row:
@@ -23,20 +24,21 @@ def get_positions(board, player):
 
 
 def generate_move(board, player):
-    list_of_coordinates = []
     list_of_moves = []
-    list_of_coordinates = get_positions(board,player)
+    list_of_coordinates = get_positions(board, player)
     for coordinate in list_of_coordinates:
-        temp_list = move(board,coordinate[0],coordinate[1])
+        temp_list = move(board, coordinate[0], coordinate[1])
         for a_board in temp_list:
             list_of_moves.append(a_board)
 
     return list_of_moves
 
+
 def valid_position(length, row, col):
     if row >= 0 and row < length and col >= 0 and col < length:
         return True
     return False
+
 
 def move(board, row, col):
     list_of_move = []
@@ -94,9 +96,13 @@ def move(board, row, col):
 
 
 class node:
-    def __init__(self, board, player):
+    def __init__(self, i_depth,  board, i_player, value = 0):
+        self.depth = i_depth
         self.board = board
-        self.player 
+        self.player = i_player
+        self.value = value
+        self.children = []
+
 
 
 
