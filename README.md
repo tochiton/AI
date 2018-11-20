@@ -1,5 +1,8 @@
 # AI
 
+tested on python 2.7
+run AI using: python main.py
+
 let’s formally define steps of the algorithm:
 
 Construct the complete game tree
