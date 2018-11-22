@@ -253,31 +253,32 @@ def inorder(node):
 
 ##this is main and where the game will essentially be played.
 if __name__ == '__main__':
- depth = 5  ##set the depth cutoff (i.e how many moves ahead AI will look)
+ depth = 10  ##set the depth cutoff (i.e how many moves ahead AI will look)
  botplayer = 'B'    ##set the bot as black
 
-#  playboard = [
-#      ['W', 'W', 'W'],
-#      ['0', '0', '0'],
-#      ['B', 'B', 'B']
-#  ]
+ playboard = [
+     ['W', '0', 'W'],
+     ['B', 'B', '0'],
+     ['B', '0', '0']
+ ]
 
 ##you can set the play board in any n x n 2d matrix configuration with n number
 ##of pawns for each side. 'W' represents white pawn, 'B' represents black pawn
 ##'0' represents an empty space in board
- playboard = [
-     ['W', 'W', 'W', 'W', 'W', 'W'],
-     ['0', '0', '0', '0', '0', '0'],
-     ['0', '0', '0', '0', '0', '0'],
-     ['0', '0', '0', '0', '0', '0'],
-     ['0', '0', '0', '0', '0', '0'],
-     ['B', 'B', 'B', 'B', 'B', 'B']
- ]
+ # playboard = [
+ #     ['W', 'W', 'W', 'W', 'W', 'W'],
+ #     ['0', '0', '0', '0', '0', '0'],
+ #     ['0', '0', '0', '0', '0', '0'],
+ #     ['0', '0', '0', '0', '0', '0'],
+ #     ['0', '0', '0', '0', '0', '0'],
+ #     ['B', 'B', 'B', 'B', 'B', 'B']
+ # ]
+
 
 
  ##Below is for debugging.........................
- ##initial_state = Node(depth, player, initial_board, 1000)
- ##inorder(initial_state)
+ # initial_state = Node(depth, botplayer, playboard, 1000)
+ # inorder(initial_state)
  ##minimax(initial_state, depth, player)
  ##inorder(initial_state)
  ##print_path(initial_state)
@@ -291,16 +292,45 @@ if __name__ == '__main__':
 
  ##continue to play the game until someone wins (until end state is reached)
  while endgame == 0:
-     pmove = raw_input("White turn, Enter your move: ")
-     while parsing(pmove.upper()) not in generate_move(playboard, 'W'):
-        pmove = raw_input("Not valid move, reenter: ")
-    
-     playboard = parsing(pmove.upper())
+     pmove = raw_input("White turn, Enter to from coordinates: ")
+
+     old_row, old_col = int(pmove[0]), int(pmove[1])
+     new_row, new_col = int(pmove[3]), int(pmove[4])
+
+     length = len(playboard)
+     while new_row >= length or new_row < 0 or new_col >= length or new_col < 0 or \
+             old_row >= length or old_row < 0 or old_col >= length or old_col < 0:
+         pmove = raw_input("White turn, Enter to from coordinates: ")
+         old_row, old_col = int(pmove[0]), int(pmove[1])
+         new_row, new_col = int(pmove[3]), int(pmove[4])
+
+     tempboard = copy.deepcopy(playboard)
+     tempboard[old_row][old_col] = '0'
+     tempboard[new_row][new_col] = 'W'
+
+
+     possibleboards = generate_move(playboard,'W')
+
+     while tempboard not in possibleboards:
+         pmove = raw_input("White turn, Enter to from coordinates: ")
+
+         old_row, old_col = int(pmove[0]), int(pmove[1])
+         new_row, new_col = int(pmove[3]), int(pmove[4])
+         # print old_row, old_col
+         # print new_row, new_col
+         tempboard = copy.deepcopy(playboard)
+         tempboard[old_row][old_col] = '0'
+         tempboard[new_row][new_col] = 'W'
+
+
+     playboard[old_row][old_col] = '0'
+     playboard[new_row][new_col] = 'W'
+
      print_twod_array(playboard)
      endgame = end_state(playboard,'B')
      if endgame != 0:
          break
-     
+
      print ("Black bot turn, processing: ")
      initial_state = Node(depth,botplayer,playboard,1000)
      decision = minimax(initial_state,depth,botplayer)
@@ -308,23 +338,23 @@ if __name__ == '__main__':
          if child.value == decision:
              playboard = child.board
              break
-         
+
      print_twod_array(playboard)
      endgame = end_state(playboard, 'W')
      if endgame != 0:
          break
- 
+
  if endgame == 10:
     print ("AI bot won (Black)")
  else:
     print ("Player won (White)")
- 
- 
- 
- 
 
 
 
 
 
-
+ #
+ #
+ #
+ #
+ #
