@@ -227,6 +227,7 @@ def minimax(node, depth, player):
    node.value = optimal    ##this will essentially assign the parent node with optimal minimax val.
    return optimal
 
+#this is minimax with alpha beta pruning to reduce the search space of the expanded tree
 def minimaxalphabeta(node, depth, player, a, b):
    if (abs(node.value) == 10) or (depth == 0):
        return node.value
