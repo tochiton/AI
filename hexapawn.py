@@ -37,9 +37,9 @@ class Node:
             for elem in row:
                 print elem,
             print("\n")
-        print("---------------")
+            print("---------------")
 
-     def get_best_move(self):
+    def get_best_move(self):
         if not self.children:
             print self.get_value()
             print("no children - just myself")
