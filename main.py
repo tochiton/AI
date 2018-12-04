@@ -257,9 +257,9 @@ if __name__ == '__main__':
  botplayer = 'B'    ##set the bot as black
 
  playboard = [
-     ['W', '0', 'W'],
-     ['B', 'B', '0'],
-     ['B', '0', '0']
+     ['W', 'W', 'W'],
+     ['0', '0', '0'],
+     ['B', 'B', 'B']
  ]
 
 ##you can set the play board in any n x n 2d matrix configuration with n number
